@@ -138,27 +138,41 @@ class BTree(object):
                 bigger_next = bigger_next.left
         return parent_bigger_next, bigger_next
 
-    def find_parent(self, node, val):
+    def find_parent(self, node, node_to_find):
         if node is not None:
-            if node.data != val:
+            if node.data != node_to_find.data:
                 parent = node
-                if val < node.data and node.left is not None:
-                    if node.left.data == val:
+                if node_to_find.data < node.data and node.left is not None:
+                    if node.left.data == node_to_find.data:
                         return parent
                     else:
-                        return self.find_parent(node.left, val)
-                elif val > node.data and node.right is not None:
-                    if node.right.data == val:
+                        return self.find_parent(node.left, node_to_find)
+                elif node_to_find.data > node.data and node.right is not None:
+                    if node.right.data == node_to_find.data:
                         return parent
                     else:
-                        return self.find_parent(node.right, val)
+                        return self.find_parent(node.right, node_to_find)
 
     def delete_node(self, val):
         node_to_delete = self.find(val)
         if node_to_delete:
             parent_prev_smaller, prev_smaller = self.prev_smaller_in_subtree(node_to_delete)
-            node_to_delete.data = prev_smaller.data
-            self.delete_leaf(parent_prev_smaller, prev_smaller)
+            if prev_smaller is not None:
+                node_to_delete.data = prev_smaller.data
+                self.delete_leaf(parent_prev_smaller, prev_smaller)
+                return
+            else:
+                parent_next_bigger, next_bigger = self.next_bigger_in_subtree(node_to_delete)
+            if next_bigger is not None:
+                node_to_delete.data = next_bigger.data
+                self.delete_leaf(parent_next_bigger, next_bigger)
+                return
+            else:
+                parent = self.find_parent(self.root, node_to_delete)
+                if parent:
+                    self.delete_leaf(parent, node_to_delete)
+                else:
+                    self.root = None
 
 
 if __name__ == '__main__':

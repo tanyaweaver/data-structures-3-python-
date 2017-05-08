@@ -296,28 +296,65 @@ def test_delete_node3():
 
 def test_find_parent1():
     tree1 = build_tree()
-    assert tree1.find_parent(tree1.root, 5) is None
+    node = Node(5)
+    assert tree1.find_parent(tree1.root, node) is None
 
 
 def test_find_parent2():
     tree1 = build_tree()
-    parent = tree1.find_parent(tree1.root, 2)
+    node = Node(2)
+    parent = tree1.find_parent(tree1.root, node)
     assert parent.data == 5
 
 
 def test_find_parent3():
     tree1 = build_tree()
-    parent = tree1.find_parent(tree1.root, 22)
+    node = Node(22)
+    parent = tree1.find_parent(tree1.root, node)
     assert parent is None
 
 
 def test_find_parent4():
     tree1 = build_tree()
-    parent = tree1.find_parent(tree1.root, 3)
+    node = Node(1)
+    parent = tree1.find_parent(tree1.root, node)
     assert parent.data == 2
 
 
 def test_find_parent5():
     tree1 = build_tree()
-    parent = tree1.find_parent(tree1.root, 8)
+    node = Node(8)
+    parent = tree1.find_parent(tree1.root, node)
     assert parent.data == 7
+
+
+def test_delete_node4():
+    tree1 = build_tree()
+    tree1.delete_node(1)
+    assert tree1.in_order_traversal(tree1.root) == [2, 3, 5, 6, 7, 8]
+
+
+def test_delete_node5():
+    tree1 = build_tree()
+    tree1.delete_node(3)
+    assert tree1.in_order_traversal(tree1.root) == [1, 2, 5, 6, 7, 8]
+
+
+def test_delete_node6():
+    tree1 = BTree()
+    tree1.insert_node(5)
+    tree1.delete_node(5)
+    assert tree1.root is None
+
+
+def test_delete_node7():
+    tree1 = BTree()
+    tree1.insert_node(5)
+    tree1.delete_node(52)
+    assert tree1.root.data == 5
+
+
+def test_delete_node8():
+    tree1 = BTree()
+    tree1.delete_node(52)
+    assert tree1.root is None
