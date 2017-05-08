@@ -210,3 +210,61 @@ def test_is_mirror_tree3():
     tree1 = build_tree()
     tree2 = BTree()
     assert tree1.is_mirror_tree(tree1.root, tree2.root) is False
+
+
+def test_delete_leaf1():
+    tree1 = build_tree()
+    parent = tree1.find(2)
+    node = tree1.find(3)
+    tree1.delete_leaf(parent, node)
+    assert not tree1.find(3)
+
+
+def test_delete_leaf2():
+    tree1 = build_tree()
+    parent = tree1.find(2)
+    node = tree1.find(3)
+    tree1.delete_leaf(parent, node)
+    assert parent.right is None
+
+
+def test_closest_smaller_neighbor1():
+    tree1 = build_tree()
+    node = tree1.find(5)
+    closest_smaller = tree1.closest_smaller_neighbor(node)
+    assert closest_smaller.data == 3
+
+
+def test_closest_smaller_neighbor2():
+    tree1 = build_tree()
+    node = tree1.find(2)
+    closest_smaller = tree1.closest_smaller_neighbor(node)
+    assert closest_smaller.data == 1
+
+
+def test_closest_smaller_neighbor3():
+    tree1 = build_tree()
+    node = tree1.find(1)
+    closest_smaller = tree1.closest_smaller_neighbor(node)
+    assert closest_smaller is None
+
+
+def test_closest_bigger_neighbor1():
+    tree1 = build_tree()
+    node = tree1.find(5)
+    closest_smaller = tree1.closest_bigger_neighbor(node)
+    assert closest_smaller.data == 6
+
+
+def test_closest_bigger_neighbor2():
+    tree1 = build_tree()
+    node = tree1.find(7)
+    closest_smaller = tree1.closest_bigger_neighbor(node)
+    assert closest_smaller.data == 8
+
+
+def test_closest_bigger_neighbor():
+    tree1 = build_tree()
+    node = tree1.find(8)
+    closest_smaller = tree1.closest_bigger_neighbor(node)
+    assert closest_smaller is None

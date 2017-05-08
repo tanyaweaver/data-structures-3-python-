@@ -112,6 +112,29 @@ class BTree(object):
             return check_left and check_right
         return False
 
+    def delete_leaf(self, parent, node):
+        if parent.left == node:
+            parent.left = None
+        if parent.right == node:
+            parent.right = None
+
+    def closest_smaller_neighbor(self, node):
+        smallest_prev = None
+        if node.left is not None:
+            smallest_prev = node.left
+            while smallest_prev.right is not None:
+                smallest_prev = smallest_prev.right
+        return smallest_prev
+
+    def closest_bigger_neighbor(self, node):
+        bigger_next = None
+        if node.right is not None:
+            bigger_next = node.right
+            while bigger_next.left is not None:
+                bigger_next = bigger_next.left
+        return bigger_next
+
+
 
 if __name__ == '__main__':
     newTree = BTree()
