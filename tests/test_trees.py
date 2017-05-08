@@ -50,3 +50,8 @@ def test_insert_node5():
     newTree.insert_node(5)
     newTree.insert_node(6)
     assert newTree.root.left is None
+
+
+def test_find_empty_tree():
+    newTree = BTree()
+    assert not newTree.find(5)

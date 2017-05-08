@@ -31,3 +31,9 @@ class BTree(object):
             self.root = Node(val)
         else:
             self._add(val, self.root)
+
+    def find(self, val):
+        if self.root is None:
+            return None
+        else:
+            return self._find(val, self.root)
