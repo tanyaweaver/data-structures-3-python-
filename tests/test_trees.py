@@ -17,6 +17,14 @@ def build_tree_inverse():
     return newTree
 
 
+def build_tree2():
+    newTree = BTree()
+    vals = [5, 2, 1, 4, 17, 6]
+    for val in vals:
+        newTree.insert_node(val)
+    return newTree
+
+
 def test_cerate_new_node1():
     newNode = Node(3)
     assert newNode.data == 3
@@ -128,4 +136,22 @@ def test_equal_to_another_tree1():
 def test_equal_to_another_tree2():
     tree1 = build_tree()
     tree2 = build_tree_inverse()
+    assert tree1.equal_to_another_tree(tree1.root, tree2.root) is False
+
+
+def test_equal_to_another_tree3():
+    tree1 = build_tree()
+    tree2 = BTree()
+    assert tree1.equal_to_another_tree(tree1.root, tree2.root) is False
+
+
+def test_equal_to_another_tree4():
+    tree2 = build_tree()
+    tree1 = BTree()
+    assert tree1.equal_to_another_tree(tree1.root, tree2.root) is False
+
+
+def test_equal_to_another_tree5():
+    tree1 = build_tree()
+    tree2 = build_tree2()
     assert tree1.equal_to_another_tree(tree1.root, tree2.root) is False
