@@ -71,8 +71,35 @@ def test_find_existing_node2():
     assert newTree.find(6).data == 6
 
 
+def test_find_existing_node3():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(2)
+    assert newTree.find(2).data == 2
+
+
+def test_delete_tree():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(2)
+    newTree.delete_tree()
+    assert newTree.root is None
+
+
 def test_find_non_existing_node():
     newTree = BTree()
     newTree.insert_node(5)
     newTree.insert_node(6)
     assert not newTree.find(7)
+
+
+def test_pre_order_traversal():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(2)
+    newTree.insert_node(1)
+    newTree.insert_node(3)
+    newTree.insert_node(7)
+    newTree.insert_node(6)
+    newTree.insert_node(8)
+    
