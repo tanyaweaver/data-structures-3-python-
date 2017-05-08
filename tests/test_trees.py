@@ -22,3 +22,31 @@ def test_insert_node1():
     newTree = BTree()
     newTree.insert_node(5)
     assert newTree.root.data == 5
+
+
+def test_insert_node2():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(2)
+    assert newTree.root.left.data == 2
+
+
+def test_insert_node3():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(2)
+    assert newTree.root.right is None
+
+
+def test_insert_node4():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(6)
+    assert newTree.root.right.data == 6
+
+
+def test_insert_node5():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(6)
+    assert newTree.root.left is None
