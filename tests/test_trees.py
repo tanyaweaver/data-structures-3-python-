@@ -55,3 +55,24 @@ def test_insert_node5():
 def test_find_empty_tree():
     newTree = BTree()
     assert not newTree.find(5)
+
+
+def test_find_existing_node1():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(6)
+    assert newTree.find(5).data == 5
+
+
+def test_find_existing_node2():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(6)
+    assert newTree.find(6).data == 6
+
+
+def test_find_non_existing_node():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(6)
+    assert not newTree.find(7)

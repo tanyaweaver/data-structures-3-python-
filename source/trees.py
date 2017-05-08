@@ -37,3 +37,14 @@ class BTree(object):
             return None
         else:
             return self._find(val, self.root)
+
+    def _find(self, val, node):
+        if node is None:
+            return None
+        elif val == node.data:
+            return node
+        else:
+            if val < node.data:
+                return self._find(val, node.left)
+            else:
+                return self._find(val, node.right)
