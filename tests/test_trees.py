@@ -1,5 +1,16 @@
 from source.trees import Node, BTree
 
+def build_tree():
+    newTree = BTree()
+    newTree.insert_node(5)
+    newTree.insert_node(2)
+    newTree.insert_node(1)
+    newTree.insert_node(3)
+    newTree.insert_node(7)
+    newTree.insert_node(6)
+    newTree.insert_node(8)
+    return newTree
+
 
 def test_cerate_new_node1():
     newNode = Node(3)
@@ -58,48 +69,41 @@ def test_find_empty_tree():
 
 
 def test_find_existing_node1():
-    newTree = BTree()
-    newTree.insert_node(5)
-    newTree.insert_node(6)
+    newTree = build_tree()
     assert newTree.find(5).data == 5
 
 
 def test_find_existing_node2():
-    newTree = BTree()
-    newTree.insert_node(5)
-    newTree.insert_node(6)
+    newTree = build_tree()
     assert newTree.find(6).data == 6
 
 
 def test_find_existing_node3():
-    newTree = BTree()
-    newTree.insert_node(5)
-    newTree.insert_node(2)
+    newTree = build_tree()
     assert newTree.find(2).data == 2
 
 
 def test_delete_tree():
-    newTree = BTree()
-    newTree.insert_node(5)
-    newTree.insert_node(2)
+    newTree = build_tree()
     newTree.delete_tree()
     assert newTree.root is None
 
 
 def test_find_non_existing_node():
-    newTree = BTree()
-    newTree.insert_node(5)
-    newTree.insert_node(6)
-    assert not newTree.find(7)
+    newTree = build_tree()
+    assert not newTree.find(17)
 
 
 def test_pre_order_traversal():
-    newTree = BTree()
-    newTree.insert_node(5)
-    newTree.insert_node(2)
-    newTree.insert_node(1)
-    newTree.insert_node(3)
-    newTree.insert_node(7)
-    newTree.insert_node(6)
-    newTree.insert_node(8)
-    
+    newTree = build_tree()
+    assert newTree.pre_order_traversal(newTree.root) == [5, 2, 1, 3, 7, 6, 8]
+
+
+def test_in_order_traversal():
+    newTree = build_tree()
+    assert newTree.in_order_traversal(newTree.root) == [1, 2, 3, 5, 6, 7, 8]
+
+
+def test_post_order_traversal():
+    newTree = build_tree()
+    assert newTree.post_order_traversal(newTree.root) == [1, 3, 2, 6, 8, 7, 5]

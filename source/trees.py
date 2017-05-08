@@ -61,14 +61,6 @@ class BTree(object):
             result = self.pre_order_traversal(node.right, result)
         return result
 
-    def pre_order_traversal_gen(self, node):
-        if node:
-            yield node.data
-            for x in self.pre_order_traversal(node.left):
-                yield x
-            for x in self.pre_order_traversal(node.right):
-                yield x
-
     def in_order_traversal(self, node, result=None):
         if node:
             if not result:
@@ -86,6 +78,14 @@ class BTree(object):
             result = self.post_order_traversal(node.right, result)
             result.append(node.data)
         return result
+
+    def pre_order_traversal_gen(self, node):
+        if node:
+            yield node.data
+            for x in self.pre_order_traversal(node.left):
+                yield x
+                for x in self.pre_order_traversal(node.right):
+                    yield x
 
 
 if __name__ == '__main__':
