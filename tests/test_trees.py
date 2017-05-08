@@ -228,43 +228,96 @@ def test_delete_leaf2():
     assert parent.right is None
 
 
-def test_closest_smaller_neighbor1():
+def test_prev_smaller_in_subtree1():
     tree1 = build_tree()
     node = tree1.find(5)
-    closest_smaller = tree1.closest_smaller_neighbor(node)
-    assert closest_smaller.data == 3
+    parent_smaller_prev, smaller_prev = tree1.prev_smaller_in_subtree(node)
+    assert parent_smaller_prev.data == 2
+    assert smaller_prev.data == 3
 
 
-def test_closest_smaller_neighbor2():
+def test_prev_smaller_in_subtree2():
     tree1 = build_tree()
     node = tree1.find(2)
-    closest_smaller = tree1.closest_smaller_neighbor(node)
-    assert closest_smaller.data == 1
+    parent_smaller_prev, smaller_prev = tree1.prev_smaller_in_subtree(node)
+    assert parent_smaller_prev.data == 2
+    assert smaller_prev.data == 1
 
 
-def test_closest_smaller_neighbor3():
+def test_prev_smaller_in_subtree3():
     tree1 = build_tree()
     node = tree1.find(1)
-    closest_smaller = tree1.closest_smaller_neighbor(node)
-    assert closest_smaller is None
+    parent_smaller_prev, smaller_prev = tree1.prev_smaller_in_subtree(node)
+    assert parent_smaller_prev.data == 1
+    assert smaller_prev is None
 
 
-def test_closest_bigger_neighbor1():
+def test_next_bigger_in_subtree1():
     tree1 = build_tree()
     node = tree1.find(5)
-    closest_smaller = tree1.closest_bigger_neighbor(node)
-    assert closest_smaller.data == 6
+    parent_bigger_next, bigger_next = tree1.next_bigger_in_subtree(node)
+    assert parent_bigger_next.data == 7
+    assert bigger_next.data == 6
 
 
-def test_closest_bigger_neighbor2():
+def test_next_bigger_in_subtree2():
     tree1 = build_tree()
     node = tree1.find(7)
-    closest_smaller = tree1.closest_bigger_neighbor(node)
-    assert closest_smaller.data == 8
+    parent_bigger_next, bigger_next = tree1.next_bigger_in_subtree(node)
+    assert parent_bigger_next.data == 7
+    assert bigger_next.data == 8
 
 
-def test_closest_bigger_neighbor():
+def test_next_bigger_in_subtree():
     tree1 = build_tree()
     node = tree1.find(8)
-    closest_smaller = tree1.closest_bigger_neighbor(node)
-    assert closest_smaller is None
+    parent_bigger_next, bigger_next = tree1.next_bigger_in_subtree(node)
+    assert parent_bigger_next.data == 8
+    assert bigger_next is None
+
+
+def test_delete_node1():
+    tree1 = build_tree()
+    tree1.delete_node(5)
+    assert tree1.in_order_traversal(tree1.root) == [1, 2, 3, 6, 7, 8]
+
+
+def test_delete_node2():
+    tree1 = build_tree()
+    tree1.delete_node(2)
+    assert tree1.in_order_traversal(tree1.root) == [1, 3, 5, 6, 7, 8]
+
+
+def test_delete_node3():
+    tree1 = build_tree()
+    tree1.delete_node(7)
+    assert tree1.in_order_traversal(tree1.root) == [1, 2, 3, 5, 6, 8]
+
+
+def test_find_parent1():
+    tree1 = build_tree()
+    assert tree1.find_parent(tree1.root, 5) is None
+
+
+def test_find_parent2():
+    tree1 = build_tree()
+    parent = tree1.find_parent(tree1.root, 2)
+    assert parent.data == 5
+
+
+def test_find_parent3():
+    tree1 = build_tree()
+    parent = tree1.find_parent(tree1.root, 22)
+    assert parent is None
+
+
+def test_find_parent4():
+    tree1 = build_tree()
+    parent = tree1.find_parent(tree1.root, 3)
+    assert parent.data == 2
+
+
+def test_find_parent5():
+    tree1 = build_tree()
+    parent = tree1.find_parent(tree1.root, 8)
+    assert parent.data == 7

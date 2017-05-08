@@ -118,22 +118,47 @@ class BTree(object):
         if parent.right == node:
             parent.right = None
 
-    def closest_smaller_neighbor(self, node):
-        smallest_prev = None
+    def prev_smaller_in_subtree(self, node):
+        parent_smaller_prev = node
+        smaller_prev = None
         if node.left is not None:
-            smallest_prev = node.left
-            while smallest_prev.right is not None:
-                smallest_prev = smallest_prev.right
-        return smallest_prev
+            smaller_prev = node.left
+            while smaller_prev.right is not None:
+                parent_smaller_prev = smaller_prev
+                smaller_prev = smaller_prev.right
+        return parent_smaller_prev, smaller_prev
 
-    def closest_bigger_neighbor(self, node):
+    def next_bigger_in_subtree(self, node):
+        parent_bigger_next = node
         bigger_next = None
         if node.right is not None:
             bigger_next = node.right
             while bigger_next.left is not None:
+                parent_bigger_next = bigger_next
                 bigger_next = bigger_next.left
-        return bigger_next
+        return parent_bigger_next, bigger_next
 
+    def find_parent(self, node, val):
+        if node is not None:
+            if node.data != val:
+                parent = node
+                if val < node.data and node.left is not None:
+                    if node.left.data == val:
+                        return parent
+                    else:
+                        return self.find_parent(node.left, val)
+                elif val > node.data and node.right is not None:
+                    if node.right.data == val:
+                        return parent
+                    else:
+                        return self.find_parent(node.right, val)
+
+    def delete_node(self, val):
+        node_to_delete = self.find(val)
+        if node_to_delete:
+            parent_prev_smaller, prev_smaller = self.prev_smaller_in_subtree(node_to_delete)
+            node_to_delete.data = prev_smaller.data
+            self.delete_leaf(parent_prev_smaller, prev_smaller)
 
 
 if __name__ == '__main__':
