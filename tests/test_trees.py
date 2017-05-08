@@ -25,6 +25,14 @@ def build_tree2():
     return newTree
 
 
+def build_tree3():
+    newTree = BTree()
+    vals = [7, 6, 8]
+    for val in vals:
+        newTree.insert_node(val)
+    return newTree
+
+
 def test_cerate_new_node1():
     newNode = Node(3)
     assert newNode.data == 3
@@ -155,3 +163,32 @@ def test_equal_to_another_tree5():
     tree1 = build_tree()
     tree2 = build_tree2()
     assert tree1.equal_to_another_tree(tree1.root, tree2.root) is False
+
+
+def test_is_subtree_of_another_tree1():
+    tree1 = build_tree()
+    tree2 = build_tree3()
+    assert tree2.is_subtree_of_another_tree(tree1) is True
+
+
+def test_is_subtree_of_another_tree2():
+    tree1 = build_tree()
+    assert tree1.is_subtree_of_another_tree(tree1) is True
+
+
+def test_is_subtree_of_another_tree3():
+    tree1 = build_tree()
+    tree2 = build_tree3()
+    assert tree1.is_subtree_of_another_tree(tree2) is False
+
+
+def test_is_subtree_of_another_tree4():
+    tree1 = build_tree()
+    tree2 = BTree()
+    assert tree1.is_subtree_of_another_tree(tree2) is False
+
+
+def test_is_subtree_of_another_tree5():
+    tree1 = build_tree()
+    tree2 = BTree()
+    assert tree2.is_subtree_of_another_tree(tree1) is False

@@ -96,6 +96,14 @@ class BTree(object):
             return left_subtrees_equal and right_subtrees_equal
         return False
 
+    def is_subtree_of_another_tree(self, root1):
+        if self.root and root1.root:
+            root_val_present_in_tree1 = root1.find(self.root.data)
+            if root_val_present_in_tree1:
+                return self.equal_to_another_tree(self.root, root_val_present_in_tree1)
+        return False
+
+
 if __name__ == '__main__':
     newTree = BTree()
     newTree.insert_node(5)
