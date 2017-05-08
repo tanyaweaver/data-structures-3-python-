@@ -103,6 +103,15 @@ class BTree(object):
                 return self.equal_to_another_tree(self.root, root_val_present_in_tree1)
         return False
 
+    def is_mirror_tree(self, root1, root2):
+        if not root1 and not root2:
+            return True
+        if (root1 and root2) and (root1.data == root2.data):
+            check_left = self.is_mirror_tree(root1.left, root2.right)
+            check_right = self.is_mirror_tree(root1.right, root2.left)
+            return check_left and check_right
+        return False
+
 
 if __name__ == '__main__':
     newTree = BTree()

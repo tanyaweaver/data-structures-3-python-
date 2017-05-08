@@ -192,3 +192,21 @@ def test_is_subtree_of_another_tree5():
     tree1 = build_tree()
     tree2 = BTree()
     assert tree2.is_subtree_of_another_tree(tree1) is False
+
+
+def test_is_mirror_tree1():
+    tree1 = build_tree()
+    tree2 = build_tree_inverse()
+    assert tree1.is_mirror_tree(tree1.root, tree2.root) is True
+
+
+def test_is_mirror_tree2():
+    tree1 = build_tree()
+    tree2 = build_tree3()
+    assert tree1.is_mirror_tree(tree1.root, tree2.root) is False
+
+
+def test_is_mirror_tree3():
+    tree1 = build_tree()
+    tree2 = BTree()
+    assert tree1.is_mirror_tree(tree1.root, tree2.root) is False
