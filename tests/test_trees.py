@@ -1,14 +1,19 @@
 from source.trees import Node, BTree
 
+
 def build_tree():
     newTree = BTree()
-    newTree.insert_node(5)
-    newTree.insert_node(2)
-    newTree.insert_node(1)
-    newTree.insert_node(3)
-    newTree.insert_node(7)
-    newTree.insert_node(6)
-    newTree.insert_node(8)
+    vals = [5, 2, 1, 3, 7, 6, 8]
+    for val in vals:
+        newTree.insert_node(val)
+    return newTree
+
+
+def build_tree_inverse():
+    newTree = BTree()
+    vals = [5, 2, 1, 3, 7, 6, 8]
+    for val in vals:
+        newTree.insert_node(val, inverse=True)
     return newTree
 
 
@@ -104,6 +109,23 @@ def test_in_order_traversal():
     assert newTree.in_order_traversal(newTree.root) == [1, 2, 3, 5, 6, 7, 8]
 
 
+def test_in_order_traversal_inverse_tree():
+    newTree = build_tree_inverse()
+    assert newTree.in_order_traversal(newTree.root) == [8, 7, 6, 5, 3, 2, 1]
+
+
 def test_post_order_traversal():
     newTree = build_tree()
     assert newTree.post_order_traversal(newTree.root) == [1, 3, 2, 6, 8, 7, 5]
+
+
+def test_equal_to_another_tree1():
+    tree1 = build_tree()
+    tree2 = build_tree()
+    assert tree1.equal_to_another_tree(tree1.root, tree2.root) is True
+
+
+def test_equal_to_another_tree2():
+    tree1 = build_tree()
+    tree2 = build_tree_inverse()
+    assert tree1.equal_to_another_tree(tree1.root, tree2.root) is False

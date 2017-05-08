@@ -14,23 +14,23 @@ class BTree(object):
     def get_root(self):
         return self.root
 
-    def _add(self, val, node):
-        if val < node.data:
+    def _add(self, val, node, inverse):
+        if (not inverse and val < node.data) or (inverse and val > node.data):
             if not node.left:
                 node.left = Node(val)
             else:
-                self._add(val, node.left)
+                self._add(val, node.left, inverse)
         else:
             if not node.right:
                 node.right = Node(val)
             else:
-                self._add(val, node.right)
+                self._add(val, node.right, inverse)
 
-    def insert_node(self, val):
+    def insert_node(self, val, inverse=False):
         if not self.root:
             self.root = Node(val)
         else:
-            self._add(val, self.root)
+            self._add(val, self.root, inverse)
 
     def find(self, val):
         if self.root is None:
@@ -87,6 +87,14 @@ class BTree(object):
                 for x in self.pre_order_traversal(node.right):
                     yield x
 
+    def equal_to_another_tree(self, root1, root2):
+        if not root1 and not root2:
+            return True
+        if (root1 and root2) and (root1.data == root2.data):
+            left_subtrees_equal = self.equal_to_another_tree(root1.left, root2.left)
+            right_subtrees_equal = self.equal_to_another_tree(root1.right, root2.right)
+            return left_subtrees_equal and right_subtrees_equal
+        return False
 
 if __name__ == '__main__':
     newTree = BTree()
